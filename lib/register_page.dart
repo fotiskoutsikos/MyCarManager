@@ -22,11 +22,12 @@ class _RegisterPageState extends State<RegisterPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey[200], // Απαλό γκρι background
+      backgroundColor: const Color(0xFFF3E5F5), // Απαλό μωβ background
       appBar: AppBar(
         title: const Text('Register'),
         backgroundColor: Colors.deepPurple,
         centerTitle: true,
+        elevation: 0,
       ),
       body: Center(
         child: SingleChildScrollView(
@@ -37,18 +38,27 @@ class _RegisterPageState extends State<RegisterPage> {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 // Λογότυπο ή εικόνα
-                Image.asset(
-                  'assets/car_logo.png', // Διάλεξε το λογότυπο που θα χρησιμοποιήσεις
-                  height: 100,
+                Center(
+                  child: Image.asset(
+                    'assets/car_logo.png', // Διάλεξε το λογότυπο που θα χρησιμοποιήσεις
+                    height: 100,
+                  ),
                 ),
                 const SizedBox(height: 20),
 
                 // Full Name Field
                 TextField(
                   controller: fullNameController,
-                  decoration: const InputDecoration(
+                  decoration: InputDecoration(
                     labelText: 'Full Name',
-                    border: OutlineInputBorder(),
+                    labelStyle: const TextStyle(color: Colors.deepPurple),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10.0),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10.0),
+                      borderSide: const BorderSide(color: Colors.deepPurple),
+                    ),
                   ),
                 ),
                 const SizedBox(height: 20),
@@ -71,6 +81,7 @@ class _RegisterPageState extends State<RegisterPage> {
                               selectedGender = value;
                             });
                           },
+                          activeColor: Colors.deepPurple,
                         ),
                         const Text('Male'),
                       ],
@@ -85,6 +96,7 @@ class _RegisterPageState extends State<RegisterPage> {
                               selectedGender = value;
                             });
                           },
+                          activeColor: Colors.deepPurple,
                         ),
                         const Text('Female'),
                       ],
@@ -109,6 +121,12 @@ class _RegisterPageState extends State<RegisterPage> {
                           selectedAgeRange = '18-25';
                         });
                       },
+                      selectedColor: Colors.deepPurple,
+                      labelStyle: TextStyle(
+                        color: selectedAgeRange == '18-25'
+                            ? Colors.white
+                            : Colors.black,
+                      ),
                     ),
                     ChoiceChip(
                       label: const Text('26-45'),
@@ -118,6 +136,12 @@ class _RegisterPageState extends State<RegisterPage> {
                           selectedAgeRange = '26-45';
                         });
                       },
+                      selectedColor: Colors.deepPurple,
+                      labelStyle: TextStyle(
+                        color: selectedAgeRange == '26-45'
+                            ? Colors.white
+                            : Colors.black,
+                      ),
                     ),
                     ChoiceChip(
                       label: const Text('45+'),
@@ -127,6 +151,12 @@ class _RegisterPageState extends State<RegisterPage> {
                           selectedAgeRange = '45+';
                         });
                       },
+                      selectedColor: Colors.deepPurple,
+                      labelStyle: TextStyle(
+                        color: selectedAgeRange == '45+'
+                            ? Colors.white
+                            : Colors.black,
+                      ),
                     ),
                   ],
                 ),
@@ -135,9 +165,16 @@ class _RegisterPageState extends State<RegisterPage> {
                 // Username Field
                 TextField(
                   controller: usernameController,
-                  decoration: const InputDecoration(
+                  decoration: InputDecoration(
                     labelText: 'Username',
-                    border: OutlineInputBorder(),
+                    labelStyle: const TextStyle(color: Colors.deepPurple),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10.0),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10.0),
+                      borderSide: const BorderSide(color: Colors.deepPurple),
+                    ),
                   ),
                 ),
                 const SizedBox(height: 20),
@@ -146,9 +183,16 @@ class _RegisterPageState extends State<RegisterPage> {
                 TextField(
                   controller: passwordController,
                   obscureText: true,
-                  decoration: const InputDecoration(
+                  decoration: InputDecoration(
                     labelText: 'Set New Password',
-                    border: OutlineInputBorder(),
+                    labelStyle: const TextStyle(color: Colors.deepPurple),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10.0),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10.0),
+                      borderSide: const BorderSide(color: Colors.deepPurple),
+                    ),
                   ),
                 ),
                 const SizedBox(height: 20),
@@ -174,10 +218,14 @@ class _RegisterPageState extends State<RegisterPage> {
                     }
                   },
                   style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.deepPurple,
                     padding: const EdgeInsets.symmetric(vertical: 16),
                     textStyle: const TextStyle(fontSize: 18),
                   ),
-                  child: const Text('Register'),
+                  child: const Text(
+                    'Register',
+                    style: TextStyle(color: Colors.white),
+                  ),
                 ),
               ],
             ),

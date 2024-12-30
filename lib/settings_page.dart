@@ -1,50 +1,53 @@
 import 'package:flutter/material.dart';
+import 'login_page.dart';
 
-class SettingsPage extends StatelessWidget {
+class SettingsPage extends StatefulWidget {
   const SettingsPage({super.key});
+
+  @override
+  State<SettingsPage> createState() => _SettingsPageState();
+}
+
+class _SettingsPageState extends State<SettingsPage> {
+  // State για τα switches
+  bool isNotificationsEnabled = false;
+  bool isServiceRemindersEnabled = false;
+  bool isInspectionRemindersEnabled = false;
+  bool isNotificationVibrationsEnabled = false;
+  bool isAppVibrationsEnabled = false;
+  bool isGPSEnabled = false;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: const Color(0xFFF3E5F5), // Απαλό μωβ background
       appBar: AppBar(
-        backgroundColor: Colors.white,
+        backgroundColor: Colors.deepPurple,
         elevation: 0,
         centerTitle: true,
         title: const Text(
           'Settings',
           style: TextStyle(
-            color: Colors.black,
+            color: Colors.white,
             fontSize: 20,
             fontWeight: FontWeight.bold,
           ),
         ),
-        iconTheme: const IconThemeData(color: Colors.black),
+        iconTheme: const IconThemeData(color: Colors.white),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            // Φωτογραφία προφίλ και όνομα
-            Center(
-              child: Column(
-                children: [
-                  CircleAvatar(
-                    radius: 40,
-                    backgroundImage: AssetImage('assets/profile_pic.png'), // Εικόνα προφίλ
-                  ),
-                  const SizedBox(height: 10),
-                  const Text(
-                    'Username',
-                    style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.black,
-                    ),
-                  ),
-                ],
-              ),
+            // Εικόνα χρήστη
+            CircleAvatar(
+              radius: 40,
+              backgroundImage: AssetImage('assets/profile_pic.png'),
+            ),
+            const SizedBox(height: 10),
+            const Text(
+              'Camala White',
+              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 30),
 
@@ -53,59 +56,82 @@ class SettingsPage extends StatelessWidget {
               child: ListView(
                 children: [
                   buildSettingsOption(
-                    icon: Icons.edit,
-                    title: 'Edit Profile',
                     context: context,
+                    icon: Icons.person,
+                    title: 'Edit Profile',
+                    onTap: () {},
                   ),
                   buildSettingsOption(
+                    context: context,
                     icon: Icons.notifications,
                     title: 'Notifications',
-                    context: context,
+                    onTap: () => showCustomDialog(
+                      context: context,
+                      child: buildNotificationMenu(),
+                    ),
                   ),
                   buildSettingsOption(
+                    context: context,
                     icon: Icons.music_note,
                     title: 'Sounds',
-                    context: context,
+                    onTap: () {},
                   ),
                   buildSettingsOption(
+                    context: context,
                     icon: Icons.vibration,
                     title: 'Vibrations',
-                    context: context,
+                    onTap: () => showCustomDialog(
+                      context: context,
+                      child: buildVibrationMenu(),
+                    ),
                   ),
                   buildSettingsOption(
+                    context: context,
                     icon: Icons.privacy_tip,
                     title: 'Privacy',
-                    context: context,
+                    onTap: () => showCustomDialog(
+                      context: context,
+                      child: buildPrivacyMenu(),
+                    ),
                   ),
                   buildSettingsOption(
+                    context: context,
                     icon: Icons.storage,
                     title: 'Data & Storage',
-                    context: context,
+                    onTap: () {},
                   ),
                   buildSettingsOption(
+                    context: context,
                     icon: Icons.color_lens,
                     title: 'Change Theme',
-                    context: context,
+                    onTap: () {},
                   ),
                   buildSettingsOption(
+                    context: context,
                     icon: Icons.quiz,
                     title: 'Retake the Quiz',
-                    context: context,
+                    onTap: () {},
                   ),
                   buildSettingsOption(
+                    context: context,
                     icon: Icons.support,
                     title: 'Support',
-                    context: context,
+                    onTap: () {},
                   ),
                   buildSettingsOption(
+                    context: context,
                     icon: Icons.group,
                     title: 'Invite Your Friends',
-                    context: context,
+                    onTap: () {},
                   ),
                   buildSettingsOption(
+                    context: context,
                     icon: Icons.logout,
                     title: 'Sign Out',
-                    context: context,
+                    onTap: () => showCustomDialog(
+                      context: context,
+                      child: buildSignOutMenu(context),
+                    ),
                   ),
                 ],
               ),
@@ -116,21 +142,201 @@ class SettingsPage extends StatelessWidget {
     );
   }
 
-  Widget buildSettingsOption(
-      {required IconData icon, required String title, required BuildContext context}) {
+  Widget buildSettingsOption({
+    required BuildContext context,
+    required IconData icon,
+    required String title,
+    required VoidCallback onTap,
+  }) {
     return Card(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
       elevation: 2,
       child: ListTile(
         leading: Icon(icon, color: Colors.pink),
-        title: Text(
-          title,
-          style: const TextStyle(fontWeight: FontWeight.bold),
-        ),
-        onTap: () {
-          // Προσθήκη λογικής για κάθε επιλογή αν χρειάζεται
-        },
+        title: Text(title, style: const TextStyle(fontWeight: FontWeight.bold)),
+        onTap: onTap,
       ),
+    );
+  }
+
+  void showCustomDialog({required BuildContext context, required Widget child}) {
+    showDialog(
+      context: context,
+      builder: (BuildContext dialogContext) {
+        return Dialog(
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+          insetPadding: const EdgeInsets.all(16),
+          child: StatefulBuilder(
+            builder: (BuildContext context, StateSetter setState) {
+              return child;
+            },
+          ),
+        );
+      },
+    );
+  }
+
+  Widget buildNotificationMenu() {
+    return Padding(
+      padding: const EdgeInsets.all(16.0),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          buildSwitchOption(
+            'Notifications',
+            isNotificationsEnabled,
+            (value) {
+              setState(() {
+                isNotificationsEnabled = value;
+              });
+            },
+          ),
+          buildSwitchOption(
+            'Service Reminders',
+            isServiceRemindersEnabled,
+            (value) {
+              setState(() {
+                isServiceRemindersEnabled = value;
+              });
+            },
+          ),
+          buildSwitchOption(
+            'Inspection Reminders',
+            isInspectionRemindersEnabled,
+            (value) {
+              setState(() {
+                isInspectionRemindersEnabled = value;
+              });
+            },
+          ),
+          const SizedBox(height: 20),
+          ElevatedButton(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            style: ElevatedButton.styleFrom(backgroundColor: Colors.black),
+            child: const Text('Save Preferences'),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget buildVibrationMenu() {
+    return Padding(
+      padding: const EdgeInsets.all(16.0),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          buildSwitchOption(
+            'Notification Vibrations',
+            isNotificationVibrationsEnabled,
+            (value) {
+              setState(() {
+                isNotificationVibrationsEnabled = value;
+              });
+            },
+          ),
+          buildSwitchOption(
+            'Application Vibrations',
+            isAppVibrationsEnabled,
+            (value) {
+              setState(() {
+                isAppVibrationsEnabled = value;
+              });
+            },
+          ),
+          const SizedBox(height: 20),
+          ElevatedButton(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            style: ElevatedButton.styleFrom(backgroundColor: Colors.black),
+            child: const Text('Save Preferences'),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget buildPrivacyMenu() {
+    return Padding(
+      padding: const EdgeInsets.all(16.0),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          buildSwitchOption(
+            'GPS',
+            isGPSEnabled,
+            (value) {
+              setState(() {
+                isGPSEnabled = value;
+              });
+            },
+          ),
+          const SizedBox(height: 20),
+          ElevatedButton(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            style: ElevatedButton.styleFrom(backgroundColor: Colors.black),
+            child: const Text('Save Preferences'),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget buildSignOutMenu(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(16.0),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          const Text(
+            'Are you sure you want to Sign Out?',
+            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            textAlign: TextAlign.center,
+          ),
+          const SizedBox(height: 20),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                  Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(builder: (context) => const LoginPage()),
+                  );
+                },
+                style: ElevatedButton.styleFrom(backgroundColor: Colors.green),
+                child: const Text('Yes'),
+              ),
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
+                child: const Text('No'),
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget buildSwitchOption(String title, bool value, Function(bool) onChanged) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Text(title, style: const TextStyle(fontSize: 16)),
+        Switch(
+          value: value,
+          onChanged: onChanged,
+        ),
+      ],
     );
   }
 }

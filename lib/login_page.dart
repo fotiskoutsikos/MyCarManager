@@ -11,7 +11,7 @@ class LoginPage extends StatelessWidget {
     TextEditingController passwordController = TextEditingController();
 
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: const Color(0xFFF3E5F5), // Απαλό μωβ background
       body: Center(
         child: SingleChildScrollView(
           child: Padding(
@@ -19,28 +19,82 @@ class LoginPage extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Image.asset(
-                  'assets/car_logo.png', // Λογότυπο
-                  height: 100,
-                ),
-                const SizedBox(height: 20),
-                TextField(
-                  controller: usernameController,
-                  decoration: const InputDecoration(
-                    labelText: 'Username',
-                    border: OutlineInputBorder(),
+                // Λογότυπο
+                Container(
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    shape: BoxShape.circle,
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black.withOpacity(0.1),
+                        blurRadius: 10,
+                        offset: const Offset(0, 5),
+                      ),
+                    ],
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: Image.asset(
+                      'assets/car_logo.png', // Λογότυπο
+                      height: 100,
+                    ),
                   ),
                 ),
                 const SizedBox(height: 20),
+                // Τίτλος
+                const Text(
+                  "Welcome Back!",
+                  style: TextStyle(
+                    fontSize: 24,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.deepPurple,
+                  ),
+                ),
+                const SizedBox(height: 10),
+                const Text(
+                  "Please login to your account",
+                  style: TextStyle(
+                    fontSize: 16,
+                    color: Colors.deepPurple,
+                  ),
+                ),
+                const SizedBox(height: 30),
+                // Username Field
+                TextField(
+                  controller: usernameController,
+                  decoration: InputDecoration(
+                    labelText: 'Username',
+                    labelStyle: const TextStyle(color: Colors.deepPurple),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: const BorderSide(color: Colors.deepPurple),
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    prefixIcon: const Icon(Icons.person, color: Colors.deepPurple),
+                  ),
+                ),
+                const SizedBox(height: 20),
+                // Password Field
                 TextField(
                   controller: passwordController,
                   obscureText: true,
-                  decoration: const InputDecoration(
+                  decoration: InputDecoration(
                     labelText: 'Password',
-                    border: OutlineInputBorder(),
+                    labelStyle: const TextStyle(color: Colors.deepPurple),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: const BorderSide(color: Colors.deepPurple),
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    prefixIcon: const Icon(Icons.lock, color: Colors.deepPurple),
                   ),
                 ),
-                const SizedBox(height: 20),
+                const SizedBox(height: 30),
+                // Login Button
                 ElevatedButton(
                   onPressed: () {
                     // Dummy έλεγχος για login
@@ -57,9 +111,21 @@ class LoginPage extends StatelessWidget {
                       );
                     }
                   },
-                  child: const Text('Login'),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.deepPurple,
+                    padding: const EdgeInsets.symmetric(
+                        vertical: 16, horizontal: 32),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                  ),
+                  child: const Text(
+                    'Login',
+                    style: TextStyle(fontSize: 18, color: Colors.white),
+                  ),
                 ),
-                const SizedBox(height: 10),
+                const SizedBox(height: 20),
+                // Register Text Button
                 TextButton(
                   onPressed: () {
                     Navigator.push(
@@ -68,7 +134,13 @@ class LoginPage extends StatelessWidget {
                           builder: (context) => const RegisterPage()),
                     );
                   },
-                  child: const Text("Don't have an account? Register here."),
+                  child: const Text(
+                    "Don't have an account? Register here.",
+                    style: TextStyle(
+                      color: Colors.deepPurple,
+                      fontSize: 16,
+                    ),
+                  ),
                 ),
               ],
             ),
