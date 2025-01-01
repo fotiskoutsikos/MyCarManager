@@ -154,9 +154,16 @@ class HomePageContent extends StatelessWidget {
         children: [
           // Λογότυπο
           Center(
-            child: Image.asset(
-              'assets/car_logo.png', // Βάλε την εικόνα του λογότυπού σου
+            child: Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(28),
+                image: const DecorationImage(
+                  image: AssetImage('assets/car_logo.png'), // Βάλε την εικόνα σου
+                  fit: BoxFit.cover,
+                ),
+              ),
               height: 80,
+              width: 110,
             ),
           ),
           const SizedBox(height: 20),
