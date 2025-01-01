@@ -38,10 +38,17 @@ class _RegisterPageState extends State<RegisterPage> {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 // Λογότυπο ή εικόνα
-                Center(
-                  child: Image.asset(
-                    'assets/car_logo.png', // Διάλεξε το λογότυπο που θα χρησιμοποιήσεις
-                    height: 100,
+          Center(
+            child: Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(28),
+                image: const DecorationImage(
+                  image: AssetImage('assets/car_logo.png'), // Βάλε την εικόνα σου
+                  fit: BoxFit.cover,
+                ),
+              ),
+              height: 100,
+              width: 170,
                   ),
                 ),
                 const SizedBox(height: 20),
