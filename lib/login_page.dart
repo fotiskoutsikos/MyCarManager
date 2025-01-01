@@ -19,28 +19,21 @@ class LoginPage extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                // Λογότυπο
-                Container(
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    shape: BoxShape.circle,
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black.withOpacity(0.1),
-                        blurRadius: 10,
-                        offset: const Offset(0, 5),
-                      ),
-                    ],
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.all(16.0),
-                    child: Image.asset(
-                      'assets/car_logo.png', // Λογότυπο
-                      height: 100,
-                    ),
-                  ),
+          // Λογότυπο
+          Center(
+            child: Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(28),
+                image: const DecorationImage(
+                  image: AssetImage('assets/car_logo.png'), // Βάλε την εικόνα σου
+                  fit: BoxFit.cover,
                 ),
-                const SizedBox(height: 20),
+              ),
+              height: 100,
+              width: 170,
+            ),
+          ),
+          const SizedBox(height: 20),
                 // Τίτλος
                 const Text(
                   "Welcome Back!",
