@@ -29,14 +29,14 @@ class PreviousCostsPage extends StatelessWidget {
           Center(
             child: Container(
               decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(16),
+                borderRadius: BorderRadius.circular(28),
                 image: const DecorationImage(
                   image: AssetImage('assets/car_logo.png'), // Βάλε την εικόνα σου
                   fit: BoxFit.cover,
                 ),
               ),
               height: 100,
-              width: 100,
+              width: 170,
             ),
           ),
           const SizedBox(height: 20),
