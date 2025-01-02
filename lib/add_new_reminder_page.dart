@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 class AddNewReminderPage extends StatelessWidget {
+  const AddNewReminderPage({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

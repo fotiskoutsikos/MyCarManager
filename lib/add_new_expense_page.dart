@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 class AddNewExpensePage extends StatelessWidget {
+  const AddNewExpensePage({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

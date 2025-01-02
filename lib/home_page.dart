@@ -3,6 +3,7 @@ import 'package:mycarmanager_new/add_new_car_page.dart';
 import 'package:mycarmanager_new/add_new_expense_page.dart';
 import 'package:mycarmanager_new/add_new_reminder_page.dart';
 import 'previous_costs_page.dart';
+import 'map_page.dart';
 import 'settings_page.dart';
 
 class HomePage extends StatefulWidget {
@@ -19,7 +20,7 @@ class _HomePageState extends State<HomePage> {
     const HomePageContent(),
     const PreviousCostsPage(),
     const Center(child: Text('Placeholder')), // Placeholder
-    const Center(child: Text('Map Page Content')), // Placeholder
+    const MapPage(), // Placeholder
     const SettingsPage(), // Προσθήκη Settings Page
   ];
 
