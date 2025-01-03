@@ -11,7 +11,7 @@ class MapPage extends StatefulWidget {
 
 class _MapPageState extends State<MapPage> {
 
-  Location _locationController = new Location();
+  final Location _locationController = Location();
 
   static const LatLng _pCurrent = LatLng(37.979293035403195, 23.78309810976252);
   static const LatLng _pGasStation1 = LatLng(37.983762463477696, 23.76897830604288);
@@ -34,7 +34,7 @@ class _MapPageState extends State<MapPage> {
   static const LatLng _pGasStation18 = LatLng(38.032064001709145, 23.69814879187119);
   static const LatLng _pGasStation19 = LatLng(37.996808784715334, 23.700747081542413);
 
-  LatLng? _currentP = null;
+  LatLng? _currentP;
 
   @override
   void initState() {
@@ -171,20 +171,20 @@ class _MapPageState extends State<MapPage> {
   }
 
   Future<void> getLocationUpdates() async {
-    bool _serviceEnabled;
-    PermissionStatus _permissionGranted;
+    bool serviceEnabled;
+    PermissionStatus permissionGranted;
 
-    _serviceEnabled = await _locationController.serviceEnabled();
-    if (_serviceEnabled) {
-      _serviceEnabled = await _locationController.requestService();
+    serviceEnabled = await _locationController.serviceEnabled();
+    if (serviceEnabled) {
+      serviceEnabled = await _locationController.requestService();
     } else {
       return;
     }
 
-    _permissionGranted = await _locationController.hasPermission();
-    if (_permissionGranted == PermissionStatus.denied) {
-      _permissionGranted = await _locationController.requestPermission();
-      if (_permissionGranted != PermissionStatus.granted) {
+    permissionGranted = await _locationController.hasPermission();
+    if (permissionGranted == PermissionStatus.denied) {
+      permissionGranted = await _locationController.requestPermission();
+      if (permissionGranted != PermissionStatus.granted) {
         return;
       }
     }
