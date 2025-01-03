@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'home_page.dart';
 
 
 
 class Question3Page extends StatefulWidget {
+  const Question3Page({super.key});
+
   @override
   _Question3PageState createState() => _Question3PageState();
 }
@@ -76,7 +79,7 @@ class _Question3PageState extends State<Question3Page> {
                             },
                           ),
                         )
-                        .toList(),
+                        ,
                     const SizedBox(height: 10),
                     Center(
                       child: ElevatedButton(
@@ -91,6 +94,13 @@ class _Question3PageState extends State<Question3Page> {
                             ScaffoldMessenger.of(context).showSnackBar(
                               SnackBar(
                                 content: Text('You selected: $_selectedOption'),
+                              ),
+                            );
+                            // Μετάβαση στη HomePage
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => const HomePage(),
                               ),
                             );
                           } else {

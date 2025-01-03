@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mycarmanager_new/question1.dart';
 import 'login_page.dart';
 
 class SettingsPage extends StatefulWidget {
@@ -16,6 +17,7 @@ class _SettingsPageState extends State<SettingsPage> {
   bool isNotificationVibrationsEnabled = false;
   bool isAppVibrationsEnabled = false;
   bool isGPSEnabled = false;
+  bool isDarkModeEnabled = false;
 
   @override
   Widget build(BuildContext context) {
@@ -104,13 +106,19 @@ class _SettingsPageState extends State<SettingsPage> {
                     context: context,
                     icon: Icons.color_lens,
                     title: 'Change Theme',
-                    onTap: () {},
+                    onTap: () => showCustomDialog(
+                      context: context,
+                      child: buildChangeThemeMenu(),
+                    ),
                   ),
                   buildSettingsOption(
                     context: context,
                     icon: Icons.quiz,
                     title: 'Retake the Quiz',
-                    onTap: () {},
+                    onTap: () => showCustomDialog(
+                      context: context,
+                      child: buildRetakeQuizMenu(context),
+                    ),
                   ),
                   buildSettingsOption(
                     context: context,
@@ -286,6 +294,76 @@ class _SettingsPageState extends State<SettingsPage> {
       ),
     );
   }
+
+    Widget buildChangeThemeMenu() {
+    return Padding(
+      padding: const EdgeInsets.all(16.0),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          buildSwitchOption(
+            'Dark Mode',
+            isDarkModeEnabled,
+            (value) {
+              setState(() {
+                isDarkModeEnabled = value;
+              });
+            },
+          ),
+          const SizedBox(height: 20),
+          ElevatedButton(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            style: ElevatedButton.styleFrom(backgroundColor: Colors.black),
+            child: const Text('Save Preferences'),
+          ),
+        ],
+      ),
+    );
+  }
+
+
+  Widget buildRetakeQuizMenu(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(16.0),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          const Text(
+            'Are you sure you want to Retake the Quiz?',
+            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            textAlign: TextAlign.center,
+          ),
+          const SizedBox(height: 20),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                  Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(builder: (context) => const QuestionPage()),
+                  );
+                },
+                style: ElevatedButton.styleFrom(backgroundColor: Colors.green),
+                child: const Text('Yes'),
+              ),
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
+                child: const Text('No'),
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+
 
   Widget buildSignOutMenu(BuildContext context) {
     return Padding(

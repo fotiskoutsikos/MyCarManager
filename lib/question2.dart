@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'question3.dart';
 
 class Question2Page extends StatefulWidget {
+  const Question2Page({super.key});
+
   @override
   _Question2PageState createState() => _Question2PageState();
 }
@@ -74,7 +77,7 @@ class _Question2PageState extends State<Question2Page> {
                             },
                           ),
                         )
-                        .toList(),
+                        ,
                     const SizedBox(height: 10),
                     Center(
                       child: ElevatedButton(
@@ -89,6 +92,13 @@ class _Question2PageState extends State<Question2Page> {
                             ScaffoldMessenger.of(context).showSnackBar(
                               SnackBar(
                                 content: Text('You selected: $_selectedOption'),
+                              ),
+                            );
+                            // Μετάβαση στη Question3Page
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => const Question3Page(),
                               ),
                             );
                           } else {
