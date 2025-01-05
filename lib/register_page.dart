@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mycarmanager_new/start_screen.dart';
 
 class RegisterPage extends StatefulWidget {
   const RegisterPage({super.key}); // Προστέθηκε const
@@ -43,7 +44,7 @@ class _RegisterPageState extends State<RegisterPage> {
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(28),
                 image: const DecorationImage(
-                  image: AssetImage('assets/car_logo.png'), // Βάλε την εικόνα σου
+                  image: AssetImage('assets/carphoto.png'), // Βάλε την εικόνα σου
                   fit: BoxFit.cover,
                 ),
               ),
@@ -214,7 +215,11 @@ class _RegisterPageState extends State<RegisterPage> {
                         selectedGender != null &&
                         selectedAgeRange != null) {
                       // Επιστροφή στη Login Page
-                      Navigator.pop(context);
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) =>  StartScreen()),
+                      );
                     } else {
                       ScaffoldMessenger.of(context).showSnackBar(
                         const SnackBar(

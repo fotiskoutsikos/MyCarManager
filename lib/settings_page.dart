@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'login_page.dart';
+import 'package:mycarmanager_new/home_page.dart';
+import 'package:provider/provider.dart';
+import 'main.dart';
 
 class SettingsPage extends StatefulWidget {
   const SettingsPage({super.key});
@@ -19,10 +21,12 @@ class _SettingsPageState extends State<SettingsPage> {
 
   @override
   Widget build(BuildContext context) {
+    final themeNotifier = Provider.of<ThemeNotifier>(context);
+
     return Scaffold(
-      backgroundColor: const Color(0xFFF3E5F5), // Απαλό μωβ background
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       appBar: AppBar(
-        backgroundColor: Colors.deepPurple,
+        backgroundColor: Theme.of(context).appBarTheme.backgroundColor,
         elevation: 0,
         centerTitle: true,
         title: const Text(
@@ -40,7 +44,7 @@ class _SettingsPageState extends State<SettingsPage> {
         child: Column(
           children: [
             // Εικόνα χρήστη
-            CircleAvatar(
+            const CircleAvatar(
               radius: 40,
               backgroundImage: AssetImage('assets/profile_pic.png'),
             ),
@@ -104,7 +108,9 @@ class _SettingsPageState extends State<SettingsPage> {
                     context: context,
                     icon: Icons.color_lens,
                     title: 'Change Theme',
-                    onTap: () {},
+                    onTap: () {
+                      themeNotifier.toggleTheme();
+                    },
                   ),
                   buildSettingsOption(
                     context: context,
@@ -307,7 +313,7 @@ class _SettingsPageState extends State<SettingsPage> {
                   Navigator.pop(context);
                   Navigator.pushReplacement(
                     context,
-                    MaterialPageRoute(builder: (context) => const LoginPage()),
+                    MaterialPageRoute(builder: (context) => const HomePage()),
                   );
                 },
                 style: ElevatedButton.styleFrom(backgroundColor: Colors.green),

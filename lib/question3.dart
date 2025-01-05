@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mycarmanager_new/home_page.dart';
 
 
 
@@ -36,8 +37,8 @@ class _Question3PageState extends State<Question3Page> {
             const SizedBox(height: 20),
             ClipRRect(
               borderRadius: BorderRadius.circular(15),
-              child: Image.network(
-                'https://via.placeholder.com/200',
+              child: Image.asset(
+                'assets/carphoto.jpg',
                 height: 150,
                 width: 300,
                 fit: BoxFit.cover,
@@ -93,6 +94,11 @@ class _Question3PageState extends State<Question3Page> {
                                 content: Text('You selected: $_selectedOption'),
                               ),
                             );
+                               Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) =>  HomePage()),
+                      );
                           } else {
                             ScaffoldMessenger.of(context).showSnackBar(
                               const SnackBar(

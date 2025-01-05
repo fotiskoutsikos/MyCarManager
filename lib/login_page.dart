@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+// ignore: unused_import
+import 'package:mycarmanager_new/start_screen.dart';
+// ignore: unused_import
 import 'home_page.dart'; // Εισαγωγή της Home Page
 import 'register_page.dart'; // Εισαγωγή της Register Page
 
@@ -96,7 +99,7 @@ class LoginPage extends StatelessWidget {
                       Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => const HomePage()),
+                            builder: (context) =>  HomePage()),
                       );
                     } else {
                       ScaffoldMessenger.of(context).showSnackBar(

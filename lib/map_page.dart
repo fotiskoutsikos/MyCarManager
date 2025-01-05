@@ -10,8 +10,7 @@ class MapPage extends StatefulWidget {
 }
 
 class _MapPageState extends State<MapPage> {
-
-  Location _locationController = new Location();
+  Location _locationController = Location();
 
   static const LatLng _pCurrent = LatLng(37.979293035403195, 23.78309810976252);
   static const LatLng _pGasStation1 = LatLng(37.983762463477696, 23.76897830604288);
@@ -34,7 +33,7 @@ class _MapPageState extends State<MapPage> {
   static const LatLng _pGasStation18 = LatLng(38.032064001709145, 23.69814879187119);
   static const LatLng _pGasStation19 = LatLng(37.996808784715334, 23.700747081542413);
 
-  LatLng? _currentP = null;
+  LatLng? _currentP;
 
   @override
   void initState() {
@@ -44,129 +43,144 @@ class _MapPageState extends State<MapPage> {
   }
 
   BitmapDescriptor customIcon = BitmapDescriptor.defaultMarker;
-  void customMarker() {
-    BitmapDescriptor.asset(ImageConfiguration(), "blue_dot.png").then((icon) {
-      setState(() {
-        customIcon = icon;
-      });
-    });
-  }
+  void customMarker() async {
+  final BitmapDescriptor icon = await BitmapDescriptor.fromAssetImage(
+    const ImageConfiguration(size: Size(48, 48)), // Προσαρμογή μεγέθους εικονιδίου
+    'assets/blue_dot.png', // Βεβαιώσου ότι το αρχείο υπάρχει
+  );
+  setState(() {
+    customIcon = icon;
+  });
+}
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: _currentP == null 
-      ? const Center(
-        child: Text("Unable to get your location"),
-        ) 
-      : GoogleMap(
-        initialCameraPosition: const CameraPosition(
-          target: _pCurrent,
-          zoom: 13,
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor, // Dynamic background color
+      appBar: AppBar(
+        backgroundColor: Theme.of(context).appBarTheme.backgroundColor, // Dynamic app bar color
+        elevation: 0,
+        centerTitle: true,
+        title: Text(
+          'Map Page',
+          style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                fontWeight: FontWeight.bold,
+              ),
         ),
-        markers: {
-          Marker(
-            markerId: const MarkerId("_current_location"),
-            icon: customIcon,
-            position: _currentP!,
-          ),
-          const Marker(
-            markerId: MarkerId("_gas_station1"),
-            icon: BitmapDescriptor.defaultMarker,
-            position: _pGasStation1,
-          ),
-          const Marker(
-            markerId: MarkerId("_gas_station2"),
-            icon: BitmapDescriptor.defaultMarker,
-            position: _pGasStation2,
-          ),
-          const Marker(
-            markerId: MarkerId("_gas_station3"),
-            icon: BitmapDescriptor.defaultMarker,
-            position: _pGasStation3,
-          ),
-          const Marker(
-            markerId: MarkerId("_gas_station4"),
-            icon: BitmapDescriptor.defaultMarker,
-            position: _pGasStation4,
-          ),
-          const Marker(
-            markerId: MarkerId("_gas_station5"),
-            icon: BitmapDescriptor.defaultMarker,
-            position: _pGasStation5,
-          ),
-          const Marker(
-            markerId: MarkerId("_gas_station6"),
-            icon: BitmapDescriptor.defaultMarker,
-            position: _pGasStation6,
-          ),
-          const Marker(
-            markerId: MarkerId("_gas_station7"),
-            icon: BitmapDescriptor.defaultMarker,
-            position: _pGasStation7,
-          ),
-          const Marker(
-            markerId: MarkerId("_gas_station8"),
-            icon: BitmapDescriptor.defaultMarker,
-            position: _pGasStation8,
-          ),
-          const Marker(
-            markerId: MarkerId("_gas_station9"),
-            icon: BitmapDescriptor.defaultMarker,
-            position: _pGasStation9,
-          ),
-          const Marker(
-            markerId: MarkerId("_gas_station10"),
-            icon: BitmapDescriptor.defaultMarker,
-            position: _pGasStation10,
-          ),
-          const Marker(
-            markerId: MarkerId("_gas_station11"),
-            icon: BitmapDescriptor.defaultMarker,
-            position: _pGasStation11,
-          ),
-          const Marker(
-            markerId: MarkerId("_gas_station12"),
-            icon: BitmapDescriptor.defaultMarker,
-            position: _pGasStation12,
-          ),
-          const Marker(
-            markerId: MarkerId("_gas_station13"),
-            icon: BitmapDescriptor.defaultMarker,
-            position: _pGasStation13,
-          ),
-          const Marker(
-            markerId: MarkerId("_gas_station14"),
-            icon: BitmapDescriptor.defaultMarker,
-            position: _pGasStation14,
-          ),
-          const Marker(
-            markerId: MarkerId("_gas_station15"),
-            icon: BitmapDescriptor.defaultMarker,
-            position: _pGasStation15,
-          ),
-          const Marker(
-            markerId: MarkerId("_gas_station16"),
-            icon: BitmapDescriptor.defaultMarker,
-            position: _pGasStation16,
-          ),
-          const Marker(
-            markerId: MarkerId("_gas_station17"),
-            icon: BitmapDescriptor.defaultMarker,
-            position: _pGasStation17,
-          ),
-          const Marker(
-            markerId: MarkerId("_gas_station18"),
-            icon: BitmapDescriptor.defaultMarker,
-            position: _pGasStation18,
-          ),
-          const Marker(
-            markerId: MarkerId("_gas_station19"),
-            icon: BitmapDescriptor.defaultMarker,
-            position: _pGasStation19,
-          ),
-        },
+        iconTheme: IconThemeData(color: Theme.of(context).iconTheme.color),
       ),
+      body: _currentP == null
+          ? const Center(
+              child: Text("Unable to get your location"),
+            )
+          : GoogleMap(
+              initialCameraPosition: const CameraPosition(
+                target: _pCurrent,
+                zoom: 13,
+              ),
+              markers: {
+                Marker(
+                  markerId: const MarkerId("_current_location"),
+                  icon: customIcon,
+                  position: _currentP!,
+                ),
+                const Marker(
+                  markerId: MarkerId("_gas_station1"),
+                  icon: BitmapDescriptor.defaultMarker,
+                  position: _pGasStation1,
+                ),
+                const Marker(
+                  markerId: MarkerId("_gas_station2"),
+                  icon: BitmapDescriptor.defaultMarker,
+                  position: _pGasStation2,
+                ),
+                const Marker(
+                  markerId: MarkerId("_gas_station3"),
+                  icon: BitmapDescriptor.defaultMarker,
+                  position: _pGasStation3,
+                ),
+                const Marker(
+                  markerId: MarkerId("_gas_station4"),
+                  icon: BitmapDescriptor.defaultMarker,
+                  position: _pGasStation4,
+                ),
+                const Marker(
+                  markerId: MarkerId("_gas_station5"),
+                  icon: BitmapDescriptor.defaultMarker,
+                  position: _pGasStation5,
+                ),
+                const Marker(
+                  markerId: MarkerId("_gas_station6"),
+                  icon: BitmapDescriptor.defaultMarker,
+                  position: _pGasStation6,
+                ),
+                const Marker(
+                  markerId: MarkerId("_gas_station7"),
+                  icon: BitmapDescriptor.defaultMarker,
+                  position: _pGasStation7,
+                ),
+                const Marker(
+                  markerId: MarkerId("_gas_station8"),
+                  icon: BitmapDescriptor.defaultMarker,
+                  position: _pGasStation8,
+                ),
+                const Marker(
+                  markerId: MarkerId("_gas_station9"),
+                  icon: BitmapDescriptor.defaultMarker,
+                  position: _pGasStation9,
+                ),
+                const Marker(
+                  markerId: MarkerId("_gas_station10"),
+                  icon: BitmapDescriptor.defaultMarker,
+                  position: _pGasStation10,
+                ),
+                const Marker(
+                  markerId: MarkerId("_gas_station11"),
+                  icon: BitmapDescriptor.defaultMarker,
+                  position: _pGasStation11,
+                ),
+                const Marker(
+                  markerId: MarkerId("_gas_station12"),
+                  icon: BitmapDescriptor.defaultMarker,
+                  position: _pGasStation12,
+                ),
+                const Marker(
+                  markerId: MarkerId("_gas_station13"),
+                  icon: BitmapDescriptor.defaultMarker,
+                  position: _pGasStation13,
+                ),
+                const Marker(
+                  markerId: MarkerId("_gas_station14"),
+                  icon: BitmapDescriptor.defaultMarker,
+                  position: _pGasStation14,
+                ),
+                const Marker(
+                  markerId: MarkerId("_gas_station15"),
+                  icon: BitmapDescriptor.defaultMarker,
+                  position: _pGasStation15,
+                ),
+                const Marker(
+                  markerId: MarkerId("_gas_station16"),
+                  icon: BitmapDescriptor.defaultMarker,
+                  position: _pGasStation16,
+                ),
+                const Marker(
+                  markerId: MarkerId("_gas_station17"),
+                  icon: BitmapDescriptor.defaultMarker,
+                  position: _pGasStation17,
+                ),
+                const Marker(
+                  markerId: MarkerId("_gas_station18"),
+                  icon: BitmapDescriptor.defaultMarker,
+                  position: _pGasStation18,
+                ),
+                const Marker(
+                  markerId: MarkerId("_gas_station19"),
+                  icon: BitmapDescriptor.defaultMarker,
+                  position: _pGasStation19,
+                ),
+              },
+            ),
     );
   }
 
@@ -175,10 +189,8 @@ class _MapPageState extends State<MapPage> {
     PermissionStatus _permissionGranted;
 
     _serviceEnabled = await _locationController.serviceEnabled();
-    if (_serviceEnabled) {
+    if (!_serviceEnabled) {
       _serviceEnabled = await _locationController.requestService();
-    } else {
-      return;
     }
 
     _permissionGranted = await _locationController.hasPermission();
@@ -190,14 +202,11 @@ class _MapPageState extends State<MapPage> {
     }
 
     _locationController.onLocationChanged.listen((LocationData currentLocation) {
-      if (currentLocation.latitude != null && 
-      currentLocation.longitude != null) {
+      if (currentLocation.latitude != null && currentLocation.longitude != null) {
         setState(() {
           _currentP = LatLng(currentLocation.latitude!, currentLocation.longitude!);
-          print(_currentP);
         });
       }
     });
   }
-
 }

@@ -6,20 +6,19 @@ class PreviousCostsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white, // Λευκό theme
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor, // Δυναμικό background
       appBar: AppBar(
-        backgroundColor: Colors.white,
+        backgroundColor: Theme.of(context).appBarTheme.backgroundColor, // Δυναμικό AppBar χρώμα
         elevation: 0,
         centerTitle: true,
-        title: const Text(
+        title: Text(
           'Previous Costs',
-          style: TextStyle(
-            color: Colors.black,
-            fontSize: 20,
-            fontWeight: FontWeight.bold,
-          ),
+          style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+              ),
         ),
-        iconTheme: const IconThemeData(color: Colors.black),
+        iconTheme: IconThemeData(color: Theme.of(context).iconTheme.color),
       ),
       body: Column(
         children: [
@@ -42,13 +41,11 @@ class PreviousCostsPage extends StatelessWidget {
           const SizedBox(height: 20),
 
           // Τίτλος "Previous Costs"
-          const Text(
+          Text(
             'Previous Costs',
-            style: TextStyle(
-              color: Colors.black,
-              fontSize: 18,
-              fontWeight: FontWeight.bold,
-            ),
+            style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                  fontWeight: FontWeight.bold,
+                ),
           ),
           const SizedBox(height: 20),
 
@@ -58,13 +55,12 @@ class PreviousCostsPage extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 16),
               children: [
                 buildCostItem(
-                    'Oil Change', 'at 124.059km', '\$30', Icons.directions_car),
-                buildCostItem('Windshield Wipers', 'at 109.360km', '\$25.50',
+                    context, 'Oil Change', 'at 124.059km', '\$30', Icons.directions_car),
+                buildCostItem(context, 'Windshield Wipers', 'at 109.360km', '\$25.50',
                     Icons.directions_car),
-                buildCostItem(
-                    'Multipliers Change', 'at 101.728km', '\$250', Icons.build),
-                buildCostItem(
-                    'New Tires', 'at 92.665km', '\$310', Icons.settings),
+                buildCostItem(context, 'Multipliers Change', 'at 101.728km', '\$250',
+                    Icons.build),
+                buildCostItem(context, 'New Tires', 'at 92.665km', '\$310', Icons.settings),
               ],
             ),
           ),
@@ -73,35 +69,34 @@ class PreviousCostsPage extends StatelessWidget {
     );
   }
 
-  Widget buildCostItem(String title, String subtitle, String cost, IconData icon) {
+  Widget buildCostItem(
+      BuildContext context, String title, String subtitle, String cost, IconData icon) {
     return Card(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-      color: Colors.grey[200], // Απαλό γκρι για το card
+      color: Theme.of(context).cardColor, // Δυναμικό χρώμα για το card
       child: ListTile(
-        leading: Icon(icon, color: Colors.deepPurple, size: 30),
+        leading: Icon(icon, color: Theme.of(context).iconTheme.color, size: 30),
         title: Text(
           title,
-          style: const TextStyle(
-            color: Colors.black,
-            fontWeight: FontWeight.bold,
-          ),
+          style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                fontWeight: FontWeight.bold,
+              ),
         ),
         subtitle: Text(
           subtitle,
-          style: const TextStyle(
-            color: Colors.grey,
-          ),
+          style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                color: Theme.of(context).textTheme.bodySmall?.color,
+              ),
         ),
         trailing: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
-            const Icon(Icons.attach_money, color: Colors.green),
+            Icon(Icons.attach_money, color: Theme.of(context).colorScheme.secondary),
             Text(
               cost,
-              style: const TextStyle(
-                color: Colors.black,
-                fontWeight: FontWeight.bold,
-              ),
+              style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                    fontWeight: FontWeight.bold,
+                  ),
             ),
           ],
         ),

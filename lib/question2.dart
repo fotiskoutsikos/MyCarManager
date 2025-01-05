@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mycarmanager_new/question3.dart';
 
 class Question2Page extends StatefulWidget {
   @override
@@ -34,8 +35,8 @@ class _Question2PageState extends State<Question2Page> {
             const SizedBox(height: 20),
             ClipRRect(
               borderRadius: BorderRadius.circular(15),
-              child: Image.network(
-                'https://via.placeholder.com/200',
+              child: Image.asset(
+                'assets/carphoto.jpg',
                 height: 150,
                 width: 300,
                 fit: BoxFit.cover,
@@ -91,6 +92,11 @@ class _Question2PageState extends State<Question2Page> {
                                 content: Text('You selected: $_selectedOption'),
                               ),
                             );
+                               Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) =>  Question3Page()),
+                      );
                           } else {
                             ScaffoldMessenger.of(context).showSnackBar(
                               const SnackBar(
