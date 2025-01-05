@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mycarmanager_new/home_page.dart';
+import 'package:mycarmanager_new/login_page.dart';
 import 'package:mycarmanager_new/start_screen.dart';
 import 'package:provider/provider.dart';
 import 'main.dart';
@@ -357,7 +357,7 @@ class _SettingsPageState extends State<SettingsPage> {
                   Navigator.pop(context);
                   Navigator.pushReplacement(
                     context,
-                    MaterialPageRoute(builder: (context) => const HomePage()),
+                    MaterialPageRoute(builder: (context) => const LoginPage()),
                   );
                 },
                 style: ElevatedButton.styleFrom(backgroundColor: Colors.green),
