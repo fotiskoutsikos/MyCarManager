@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:mycarmanager_new/start_screen.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class RegisterPage extends StatefulWidget {
-  const RegisterPage({super.key}); // Προστέθηκε const
+  const RegisterPage({super.key});
 
   @override
   _RegisterPageState createState() => _RegisterPageState();
@@ -19,6 +20,15 @@ class _RegisterPageState extends State<RegisterPage> {
   final TextEditingController fullNameController = TextEditingController();
   final TextEditingController usernameController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
+
+  Future<void> saveUserData() async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setString('fullName', fullNameController.text);
+    await prefs.setString('username', usernameController.text);
+    await prefs.setString('password', passwordController.text);
+    await prefs.setString('gender', selectedGender ?? '');
+    await prefs.setString('ageRange', selectedAgeRange ?? '');
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -39,18 +49,18 @@ class _RegisterPageState extends State<RegisterPage> {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 // Λογότυπο ή εικόνα
-          Center(
-            child: Container(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(28),
-                image: const DecorationImage(
-                  image: AssetImage('assets/car_logo.png'), // Βάλε την εικόνα σου
-                  fit: BoxFit.cover,
-                ),
-              ),
-              height: 100,
-              width: 170,
-            ),
+                Center(
+                  child: Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(28),
+                      image: const DecorationImage(
+                        image: AssetImage('assets/car_logo.png'),
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                    height: 100,
+                    width: 170,
+                  ),
                 ),
                 const SizedBox(height: 20),
 
@@ -59,13 +69,8 @@ class _RegisterPageState extends State<RegisterPage> {
                   controller: fullNameController,
                   decoration: InputDecoration(
                     labelText: 'Full Name',
-                    labelStyle: const TextStyle(color: Colors.deepPurple),
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(10.0),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10.0),
-                      borderSide: const BorderSide(color: Colors.deepPurple),
                     ),
                   ),
                 ),
@@ -132,9 +137,7 @@ class _RegisterPageState extends State<RegisterPage> {
                       },
                       selectedColor: Colors.deepPurple,
                       labelStyle: TextStyle(
-                        color: selectedAgeRange == '18-25'
-                            ? Colors.white
-                            : Colors.black,
+                        color: selectedAgeRange == '18-25' ? Colors.white : Colors.black,
                       ),
                     ),
                     ChoiceChip(
@@ -148,9 +151,7 @@ class _RegisterPageState extends State<RegisterPage> {
                       },
                       selectedColor: Colors.deepPurple,
                       labelStyle: TextStyle(
-                        color: selectedAgeRange == '26-45'
-                            ? Colors.white
-                            : Colors.black,
+                        color: selectedAgeRange == '26-45' ? Colors.white : Colors.black,
                       ),
                     ),
                     ChoiceChip(
@@ -164,9 +165,7 @@ class _RegisterPageState extends State<RegisterPage> {
                       },
                       selectedColor: Colors.deepPurple,
                       labelStyle: TextStyle(
-                        color: selectedAgeRange == '45+'
-                            ? Colors.white
-                            : Colors.black,
+                        color: selectedAgeRange == '45+' ? Colors.white : Colors.black,
                       ),
                     ),
                   ],
@@ -178,13 +177,8 @@ class _RegisterPageState extends State<RegisterPage> {
                   controller: usernameController,
                   decoration: InputDecoration(
                     labelText: 'Username',
-                    labelStyle: const TextStyle(color: Colors.deepPurple),
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(10.0),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10.0),
-                      borderSide: const BorderSide(color: Colors.deepPurple),
                     ),
                   ),
                 ),
@@ -196,13 +190,8 @@ class _RegisterPageState extends State<RegisterPage> {
                   obscureText: true,
                   decoration: InputDecoration(
                     labelText: 'Set New Password',
-                    labelStyle: const TextStyle(color: Colors.deepPurple),
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(10.0),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10.0),
-                      borderSide: const BorderSide(color: Colors.deepPurple),
                     ),
                   ),
                 ),
@@ -210,18 +199,16 @@ class _RegisterPageState extends State<RegisterPage> {
 
                 // Register Button
                 ElevatedButton(
-                  onPressed: () {
-                    // Προσθήκη λογικής εγγραφής (π.χ., αποθήκευση τοπικά)
+                  onPressed: () async {
                     if (fullNameController.text.isNotEmpty &&
                         usernameController.text.isNotEmpty &&
                         passwordController.text.isNotEmpty &&
                         selectedGender != null &&
                         selectedAgeRange != null) {
-                      // Επιστροφή στη Login Page
+                      await saveUserData();
                       Navigator.pushReplacement(
                         context,
-                        MaterialPageRoute(
-                            builder: (context) =>  StartScreen()),
+                        MaterialPageRoute(builder: (context) => const StartScreen()),
                       );
                     } else {
                       ScaffoldMessenger.of(context).showSnackBar(

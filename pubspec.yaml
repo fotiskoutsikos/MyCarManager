@@ -30,7 +30,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  #shared_preferences: ^2.1.0
+  shared_preferences: ^2.1.0
   ################ to chat edw leei na valoume ^2.1.0 anti gia afto pou exei..............enw to vs code leei na valoume ^2.0.6 
   ################ me afto xalaei to project
   google_maps_flutter: ^2.5.0
@@ -74,6 +74,9 @@ flutter:
     - assets/safe_driving.png
     - assets/ecodriving.png 
     - assets/profile_pic.png
+    - assets/profile_pic1.png
+    - assets/profile_pic2.png
+    - assets/profile_pic3.png
     - assets/blue_dot.png
     - assets/carphoto.jpg
 

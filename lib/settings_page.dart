@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:mycarmanager_new/login_page.dart';
 import 'package:mycarmanager_new/start_screen.dart';
+import 'package:mycarmanager_new/edit_profile_page.dart'; // Νέα εισαγωγή για Edit Profile Page
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'main.dart';
 
 class SettingsPage extends StatefulWidget {
@@ -19,6 +21,23 @@ class _SettingsPageState extends State<SettingsPage> {
   bool isNotificationVibrationsEnabled = false;
   bool isAppVibrationsEnabled = false;
   bool isGPSEnabled = false;
+
+  String fullName = 'User'; // Default όνομα αν δεν έχει αποθηκευτεί τίποτα
+  String profileImagePath = 'assets/profile_pic.png'; // Default εικόνα
+
+  @override
+  void initState() {
+    super.initState();
+    _loadProfileData();
+  }
+
+  Future<void> _loadProfileData() async {
+    final prefs = await SharedPreferences.getInstance();
+    setState(() {
+      fullName = prefs.getString('fullName') ?? 'User';
+      profileImagePath = prefs.getString('profileImage') ?? 'assets/profile_pic.png';
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -44,15 +63,15 @@ class _SettingsPageState extends State<SettingsPage> {
         padding: const EdgeInsets.all(16.0),
         child: Column(
           children: [
-            // Εικόνα χρήστη
-            const CircleAvatar(
+            // Εικόνα χρήστη και Όνομα
+            CircleAvatar(
               radius: 40,
-              backgroundImage: AssetImage('assets/profile_pic.png'),
+              backgroundImage: AssetImage(profileImagePath),
             ),
             const SizedBox(height: 10),
-            const Text(
-              'Camala White',
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            Text(
+              fullName,
+              style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 30),
 
@@ -64,7 +83,17 @@ class _SettingsPageState extends State<SettingsPage> {
                     context: context,
                     icon: Icons.person,
                     title: 'Edit Profile',
-                    onTap: () {},
+                    onTap: () async {
+                      final isUpdated = await Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const EditProfilePage(),
+                        ),
+                      );
+                      if (isUpdated == true) {
+                        _loadProfileData(); // Επαναφόρτωση του ονόματος και εικόνας προφίλ
+                      }
+                    },
                   ),
                   buildSettingsOption(
                     context: context,
@@ -297,7 +326,7 @@ class _SettingsPageState extends State<SettingsPage> {
     );
   }
 
- Widget buildRetakeQuizMenu(BuildContext context) {
+  Widget buildRetakeQuizMenu(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(16.0),
       child: Column(
