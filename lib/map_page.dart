@@ -10,6 +10,7 @@ class MapPage extends StatefulWidget {
 }
 
 class _MapPageState extends State<MapPage> {
+
   final Location _locationController = Location();
 
   static const LatLng _pCurrent = LatLng(37.979293035403195, 23.78309810976252);
@@ -191,8 +192,10 @@ class _MapPageState extends State<MapPage> {
     PermissionStatus permissionGranted;
 
     serviceEnabled = await _locationController.serviceEnabled();
-    if (!serviceEnabled) {
+    if (serviceEnabled) {
       serviceEnabled = await _locationController.requestService();
+    } else {
+      return;
     }
 
     permissionGranted = await _locationController.hasPermission();

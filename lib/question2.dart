@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mycarmanager_new/question3.dart';
+import 'question3.dart';
 
 class Question2Page extends StatefulWidget {
   const Question2Page({super.key});
@@ -94,11 +94,13 @@ class _Question2PageState extends State<Question2Page> {
                                 content: Text('You selected: $_selectedOption'),
                               ),
                             );
-                               Navigator.pushReplacement(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) =>  Question3Page()),
-                      );
+                            // Μετάβαση στη Question3Page
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => const Question3Page(),
+                              ),
+                            );
                           } else {
                             ScaffoldMessenger.of(context).showSnackBar(
                               const SnackBar(

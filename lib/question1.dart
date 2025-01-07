@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mycarmanager_new/question2.dart';
+import 'question2.dart';
 
 
 
@@ -96,11 +96,13 @@ class _QuestionPageState extends State<QuestionPage> {
                                 content: Text('You selected: $_selectedOption'),
                               ),
                             );
-                               Navigator.pushReplacement(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) =>  Question2Page()),
-                      );
+                            // Μετάβαση στη Question2Page
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => const Question2Page(),
+                              ),
+                            );
                           } else {
                             ScaffoldMessenger.of(context).showSnackBar(
                               const SnackBar(

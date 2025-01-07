@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mycarmanager_new/home_page.dart';
+import 'home_page.dart';
 
 
 
@@ -96,11 +96,13 @@ class _Question3PageState extends State<Question3Page> {
                                 content: Text('You selected: $_selectedOption'),
                               ),
                             );
-                               Navigator.pushReplacement(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) =>  HomePage()),
-                      );
+                            // Μετάβαση στη HomePage
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => const HomePage(),
+                              ),
+                            );
                           } else {
                             ScaffoldMessenger.of(context).showSnackBar(
                               const SnackBar(
