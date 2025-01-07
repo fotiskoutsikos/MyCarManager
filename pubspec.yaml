@@ -35,6 +35,9 @@ dependencies:
   ################ me afto xalaei to project
   google_maps_flutter: ^2.5.0
   location: ^5.0.0
+  #audioplayers: ^0.20.1
+  #vibration: ^1.7.5
+  #flutter_local_notifications: ^12.0.4
 
 
   # The following adds the Cupertino Icons font to your application.
@@ -79,6 +82,8 @@ flutter:
     - assets/profile_pic3.png
     - assets/blue_dot.png
     - assets/carphoto.jpg
+    #- assets/welcome.mp3
+
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images
