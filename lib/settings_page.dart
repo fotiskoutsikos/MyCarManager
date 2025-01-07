@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:mycarmanager_new/question1.dart';
-import 'login_page.dart';
+import 'package:mycarmanager_new/login_page.dart';
+import 'package:mycarmanager_new/start_screen.dart';
+import 'package:mycarmanager_new/edit_profile_page.dart'; // Νέα εισαγωγή για Edit Profile Page
+import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'main.dart';
 
 class SettingsPage extends StatefulWidget {
   const SettingsPage({super.key});
@@ -17,7 +21,23 @@ class _SettingsPageState extends State<SettingsPage> {
   bool isNotificationVibrationsEnabled = false;
   bool isAppVibrationsEnabled = false;
   bool isGPSEnabled = false;
-  bool isDarkModeEnabled = false;
+
+  String fullName = 'User'; // Default όνομα αν δεν έχει αποθηκευτεί τίποτα
+  String profileImagePath = 'assets/profile_pic.png'; // Default εικόνα
+
+  @override
+  void initState() {
+    super.initState();
+    _loadProfileData();
+  }
+
+  Future<void> _loadProfileData() async {
+    final prefs = await SharedPreferences.getInstance();
+    setState(() {
+      fullName = prefs.getString('fullName') ?? 'User';
+      profileImagePath = prefs.getString('profileImage') ?? 'assets/profile_pic.png';
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -118,10 +138,9 @@ class _SettingsPageState extends State<SettingsPage> {
                     context: context,
                     icon: Icons.color_lens,
                     title: 'Change Theme',
-                    onTap: () => showCustomDialog(
-                      context: context,
-                      child: buildChangeThemeMenu(),
-                    ),
+                    onTap: () {
+                      themeNotifier.toggleTheme();
+                    },
                   ),
                   buildSettingsOption(
                     context: context,
@@ -307,35 +326,6 @@ class _SettingsPageState extends State<SettingsPage> {
     );
   }
 
-    Widget buildChangeThemeMenu() {
-    return Padding(
-      padding: const EdgeInsets.all(16.0),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          buildSwitchOption(
-            'Dark Mode',
-            isDarkModeEnabled,
-            (value) {
-              setState(() {
-                isDarkModeEnabled = value;
-              });
-            },
-          ),
-          const SizedBox(height: 20),
-          ElevatedButton(
-            onPressed: () {
-              Navigator.pop(context);
-            },
-            style: ElevatedButton.styleFrom(backgroundColor: Colors.black),
-            child: const Text('Save Preferences'),
-          ),
-        ],
-      ),
-    );
-  }
-
-
   Widget buildRetakeQuizMenu(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(16.0),
@@ -356,7 +346,7 @@ class _SettingsPageState extends State<SettingsPage> {
                   Navigator.pop(context);
                   Navigator.pushReplacement(
                     context,
-                    MaterialPageRoute(builder: (context) => const QuestionPage()),
+                    MaterialPageRoute(builder: (context) => const StartScreen()),
                   );
                 },
                 style: ElevatedButton.styleFrom(backgroundColor: Colors.green),
@@ -375,7 +365,6 @@ class _SettingsPageState extends State<SettingsPage> {
       ),
     );
   }
-
 
   Widget buildSignOutMenu(BuildContext context) {
     return Padding(
@@ -425,7 +414,6 @@ class _SettingsPageState extends State<SettingsPage> {
         Switch(
           value: value,
           onChanged: onChanged,
-          activeColor: Colors.deepPurple,
         ),
       ],
     );
