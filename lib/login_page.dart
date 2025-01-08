@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:audioplayers/audioplayers.dart';
 import 'home_page.dart';
 import 'register_page.dart';
 
@@ -18,6 +19,8 @@ class LoginPage extends StatelessWidget {
   Widget build(BuildContext context) {
     TextEditingController usernameController = TextEditingController();
     TextEditingController passwordController = TextEditingController();
+
+    final AudioPlayer audioPlayer = AudioPlayer();
 
     return Scaffold(
       backgroundColor: const Color(0xFFF3E5F5),
@@ -109,6 +112,7 @@ class LoginPage extends StatelessWidget {
                         context,
                         MaterialPageRoute(builder: (context) => const HomePage()),
                       );
+                       await audioPlayer.play(AssetSource('welcome.mp3'));
                     } else {
                       ScaffoldMessenger.of(context).showSnackBar(
                         const SnackBar(
