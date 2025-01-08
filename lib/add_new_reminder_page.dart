@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'data.dart'; // Εισαγωγή της λίστας reminders
+import 'package:flutter/services.dart'; // Για χρήση του HapticFeedback
+
 
 class AddNewReminderPage extends StatefulWidget {
   const AddNewReminderPage({super.key});
@@ -79,6 +81,9 @@ class _AddNewReminderPageState extends State<AddNewReminderPage> {
                     'date': _dateController.text,
                     'notes': _notesController.text,
                   });
+
+                  // Προσθήκη δόνησης για feedback
+                  HapticFeedback.vibrate();
 
                   // Επιστροφή στην προηγούμενη σελίδα
                   Navigator.pop(context);

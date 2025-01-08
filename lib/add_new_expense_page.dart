@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'data.dart'; // Εισαγωγή της κοινής λίστας για τα έξοδα
+import 'package:flutter/services.dart'; // Για χρήση του HapticFeedback
 
 class AddNewExpensePage extends StatefulWidget {
   const AddNewExpensePage({super.key});
@@ -79,6 +80,8 @@ class _AddNewExpensePageState extends State<AddNewExpensePage> {
                     'amount': _amountController.text,
                     'date': _dateController.text,
                   });
+
+                  HapticFeedback.vibrate();
 
                   // Επιστροφή στην προηγούμενη σελίδα
                   Navigator.pop(context);
