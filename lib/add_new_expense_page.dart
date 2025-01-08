@@ -80,6 +80,8 @@ class _AddNewExpensePageState extends State<AddNewExpensePage> {
                     'date': _dateController.text,
                   });
 
+                   HapticFeedback.vibrate();
+
                   // Επιστροφή στην προηγούμενη σελίδα
                   Navigator.pop(context);
                 } else {
