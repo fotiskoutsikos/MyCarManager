@@ -16,11 +16,13 @@ class SettingsPage extends StatefulWidget {
 class _SettingsPageState extends State<SettingsPage> {
   // State για τα switches
   bool isNotificationsEnabled = false;
+  bool isSoundsEnabled = false;
   bool isServiceRemindersEnabled = false;
   bool isInspectionRemindersEnabled = false;
   bool isNotificationVibrationsEnabled = false;
   bool isAppVibrationsEnabled = false;
   bool isGPSEnabled = false;
+  
 
   String fullName = 'User'; // Default όνομα αν δεν έχει αποθηκευτεί τίποτα
   String profileImagePath = 'assets/profile_pic.png'; // Default εικόνα
@@ -42,6 +44,7 @@ class _SettingsPageState extends State<SettingsPage> {
   @override
   Widget build(BuildContext context) {
     final themeNotifier = Provider.of<ThemeNotifier>(context);
+    
 
     return Scaffold(
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
@@ -108,7 +111,10 @@ class _SettingsPageState extends State<SettingsPage> {
                     context: context,
                     icon: Icons.music_note,
                     title: 'Sounds',
-                    onTap: () {},
+                    onTap: () => showCustomDialog(
+                      context: context,
+                      child: buildSoundsMenu(),
+                    ),
                   ),
                   buildSettingsOption(
                     context: context,
@@ -245,6 +251,34 @@ class _SettingsPageState extends State<SettingsPage> {
             (value) {
               setState(() {
                 isInspectionRemindersEnabled = value;
+              });
+            },
+          ),
+          const SizedBox(height: 20),
+          ElevatedButton(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            style: ElevatedButton.styleFrom(backgroundColor: Colors.black),
+            child: const Text('Save Preferences'),
+          ),
+        ],
+      ),
+    );
+  }
+
+Widget buildSoundsMenu() {
+    return Padding(
+      padding: const EdgeInsets.all(16.0),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          buildSwitchOption(
+            'Sounds',
+            isSoundsEnabled,
+            (value) {
+              setState(() {
+                isSoundsEnabled = value;
               });
             },
           ),

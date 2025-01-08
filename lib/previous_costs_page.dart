@@ -30,7 +30,7 @@ class PreviousCostsPage extends StatelessWidget {
           Center(
             child: Container(
               decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(20),
+                borderRadius: BorderRadius.circular(30),
                 image: const DecorationImage(
                   image: AssetImage('assets/car_logo.png'),
                   fit: BoxFit.cover,
@@ -45,7 +45,7 @@ class PreviousCostsPage extends StatelessWidget {
               ),
               height: 120,
               width: double.infinity,
-              margin: const EdgeInsets.symmetric(horizontal: 16),
+              margin: const EdgeInsets.symmetric(horizontal: 80),
             ),
           ),
 
