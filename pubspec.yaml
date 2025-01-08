@@ -37,7 +37,7 @@ dependencies:
   location: ^5.0.0
   audioplayers: ^6.1.0
   #vibration: ^1.7.6
-  #flutter_local_notifications: ^12.0.4
+  awesome_notifications: ^0.10.0
   
 
 

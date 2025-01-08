@@ -1,7 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:awesome_notifications/awesome_notifications.dart';
 
 class AddNewCarPage extends StatelessWidget {
   const AddNewCarPage({super.key});
+
+    triggerCarNotification() {
+    AwesomeNotifications().createNotification(
+      content: NotificationContent(id: 10, channelKey: 'basic_channel', title: 'Check out MyCarManager', body: 'Enjoy your new car!')
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -49,6 +56,7 @@ class AddNewCarPage extends StatelessWidget {
               onPressed: () {
                 // Λογική αποθήκευσης
                 Navigator.pop(context);
+                triggerCarNotification();
               },
               style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
               child: const Text('ADD NEW CAR'),

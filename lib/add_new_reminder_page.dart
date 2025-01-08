@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'data.dart'; // Εισαγωγή της λίστας reminders
+import 'package:awesome_notifications/awesome_notifications.dart';
 
 class AddNewReminderPage extends StatefulWidget {
   const AddNewReminderPage({super.key});
@@ -13,6 +14,12 @@ class _AddNewReminderPageState extends State<AddNewReminderPage> {
   final TextEditingController _dateController = TextEditingController();
   final TextEditingController _notesController = TextEditingController();
   String? _selectedType;
+
+    triggerReminderNotification() {
+    AwesomeNotifications().createNotification(
+      content: NotificationContent(id: 10, channelKey: 'basic_channel', title: 'Check reminders', body: 'You have a new reminder')
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -82,6 +89,7 @@ class _AddNewReminderPageState extends State<AddNewReminderPage> {
 
                   // Επιστροφή στην προηγούμενη σελίδα
                   Navigator.pop(context);
+                  triggerReminderNotification();
                 } else {
                   // Ειδοποίηση αν λείπουν δεδομένα
                   ScaffoldMessenger.of(context).showSnackBar(
