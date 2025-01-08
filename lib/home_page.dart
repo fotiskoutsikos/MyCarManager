@@ -5,9 +5,10 @@ import 'package:mycarmanager_new/add_new_reminder_page.dart';
 import 'previous_costs_page.dart';
 import 'map_page.dart';
 import 'settings_page.dart';
+import 'data.dart'; // Εισαγωγή της global λίστας reminders
 
 class HomePage extends StatefulWidget {
-  const HomePage({super.key}); // Προστέθηκε const στον constructor
+  const HomePage({super.key});
 
   @override
   _HomePageState createState() => _HomePageState();
@@ -17,11 +18,11 @@ class _HomePageState extends State<HomePage> {
   int _currentIndex = 0;
 
   final List<Widget> _pages = [
-    const HomePageContent(),
-    const PreviousCostsPage(),
+    const HomePageContent(), // Αρχική σελίδα
+    const PreviousCostsPage(), // Προηγούμενα έξοδα
     const Center(child: Text('Placeholder')), // Placeholder
-    const MapPage(), // Placeholder
-    const SettingsPage(), // Προσθήκη Settings Page
+    const MapPage(), // Χάρτες
+    const SettingsPage(), // Ρυθμίσεις
   ];
 
   @override
@@ -77,8 +78,7 @@ class _HomePageState extends State<HomePage> {
       context: context,
       builder: (BuildContext context) {
         return Dialog(
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
           child: Padding(
             padding: const EdgeInsets.all(20.0),
             child: Column(
@@ -96,8 +96,7 @@ class _HomePageState extends State<HomePage> {
                   Navigator.pop(context);
                   Navigator.push(
                     context,
-                    MaterialPageRoute(
-                        builder: (context) => AddNewExpensePage()),
+                    MaterialPageRoute(builder: (context) => AddNewExpensePage()),
                   );
                 }),
                 const SizedBox(height: 15),
@@ -105,9 +104,11 @@ class _HomePageState extends State<HomePage> {
                   Navigator.pop(context);
                   Navigator.push(
                     context,
-                    MaterialPageRoute(
-                        builder: (context) => AddNewReminderPage()),
-                  );
+                    MaterialPageRoute(builder: (context) => AddNewReminderPage()),
+                  ).then((_) {
+                    // Refresh reminders όταν επιστρέφει από τη σελίδα προσθήκης reminder
+                    setState(() {});
+                  });
                 }),
               ],
             ),
@@ -144,7 +145,7 @@ class _HomePageState extends State<HomePage> {
 }
 
 class HomePageContent extends StatelessWidget {
-  const HomePageContent({super.key}); // Προστέθηκε const στον constructor
+  const HomePageContent({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -260,19 +261,25 @@ class HomePageContent extends StatelessWidget {
                     ],
                   ),
                   const SizedBox(height: 10),
-                  const ListTile(
-                    leading:
-                        Icon(Icons.local_gas_station, color: Colors.deepPurple),
-                    title: Text('Nearby Gas Station'),
-                  ),
-                  const ListTile(
-                    leading: Icon(Icons.build, color: Colors.deepPurple),
-                    title: Text('Upcoming Service'),
-                  ),
-                  const ListTile(
-                    leading: Icon(Icons.payment, color: Colors.deepPurple),
-                    title: Text('Upcoming Payment for Tires'),
-                  ),
+                  reminders.isEmpty
+                      ? const Text(
+                          'No reminders added yet!',
+                          style: TextStyle(fontSize: 16, color: Colors.grey),
+                        )
+                      : ListView.builder(
+                          shrinkWrap: true,
+                          physics: const NeverScrollableScrollPhysics(),
+                          itemCount: reminders.length,
+                          itemBuilder: (context, index) {
+                            final reminder = reminders[index];
+                            return ListTile(
+                              leading: const Icon(Icons.alarm, color: Colors.green),
+                              title: Text(reminder['title'] ?? 'No title'),
+                              subtitle: Text(reminder['date'] ?? 'No date'),
+                              trailing: Text(reminder['type'] ?? 'No type'),
+                            );
+                          },
+                        ),
                 ],
               ),
             ),
