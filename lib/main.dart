@@ -1,3 +1,4 @@
+import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:flutter/material.dart';
 import 'login_page.dart';
 // ignore: unused_import
@@ -6,6 +7,17 @@ import 'themes.dart';
 import 'package:provider/provider.dart';
 
 void main() {
+  AwesomeNotifications().initialize(
+    null,
+    [
+      NotificationChannel(
+        channelKey: 'basic_channel',
+        channelName: 'Basic notifications',
+        channelDescription: 'Notification channel for basic tests'
+        )
+    ],
+    debug: true
+  );
   runApp(
     ChangeNotifierProvider(
       create: (_) => ThemeNotifier(),

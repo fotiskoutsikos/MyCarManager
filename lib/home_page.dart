@@ -6,6 +6,7 @@ import 'previous_costs_page.dart';
 import 'map_page.dart';
 import 'settings_page.dart';
 import 'data.dart'; // Εισαγωγή της global λίστας reminders
+import 'package:awesome_notifications/awesome_notifications.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -15,6 +16,16 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+
+  void initState() {
+    AwesomeNotifications().isNotificationAllowed().then((isAllowed){
+      if (!isAllowed) {
+        AwesomeNotifications().requestPermissionToSendNotifications();
+      }
+    });
+    super.initState();
+  }
+
   int _currentIndex = 0;
 
   final List<Widget> _pages = [
@@ -268,7 +279,7 @@ class HomePageContent extends StatelessWidget {
                         )
                       : ListView.builder(
                           shrinkWrap: true,
-                          physics: const NeverScrollableScrollPhysics(),
+                          physics: const AlwaysScrollableScrollPhysics(),
                           itemCount: reminders.length,
                           itemBuilder: (context, index) {
                             final reminder = reminders[index];
