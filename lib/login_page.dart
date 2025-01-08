@@ -112,7 +112,7 @@ class LoginPage extends StatelessWidget {
                         context,
                         MaterialPageRoute(builder: (context) => const HomePage()),
                       );
-                       await audioPlayer.play(AssetSource('welcome.mp3'));
+                      await audioPlayer.play(AssetSource('welcome.mp3'));
                     } else {
                       ScaffoldMessenger.of(context).showSnackBar(
                         const SnackBar(

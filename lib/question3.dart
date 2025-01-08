@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'home_page.dart';
-
+import 'package:audioplayers/audioplayers.dart';
 
 
 class Question3Page extends StatefulWidget {
@@ -15,6 +15,7 @@ class _Question3PageState extends State<Question3Page> {
 
   @override
   Widget build(BuildContext context) {
+    final AudioPlayer audioPlayer = AudioPlayer();
     return Scaffold(
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       appBar: AppBar(
@@ -103,6 +104,7 @@ class _Question3PageState extends State<Question3Page> {
                                 builder: (context) => const HomePage(),
                               ),
                             );
+                            audioPlayer.play(AssetSource('welcome.mp3'));
                           } else {
                             ScaffoldMessenger.of(context).showSnackBar(
                               const SnackBar(

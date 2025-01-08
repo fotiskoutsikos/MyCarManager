@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:mycarmanager_new/question1.dart';
 import 'home_page.dart';
+import 'package:audioplayers/audioplayers.dart';
 
 class  StartScreen extends StatelessWidget {
   const StartScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final AudioPlayer audioPlayer = AudioPlayer();
     return Scaffold(
       backgroundColor: Theme.of(context).scaffoldBackgroundColor, // Background color
       body: GestureDetector(
@@ -67,6 +69,7 @@ class  StartScreen extends StatelessWidget {
                     context,
                     MaterialPageRoute(builder: (context) => HomePage()),
                   );
+                  audioPlayer.play(AssetSource('welcome.mp3'));
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.grey[800],
