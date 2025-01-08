@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'data.dart'; // Εισαγωγή της κοινής λίστας για τα έξοδα
-import 'package:flutter/services.dart'; // Για χρήση του HapticFeedback
+import 'package:awesome_notifications/awesome_notifications.dart';
+import 'package:flutter/services.dart';
 
 class AddNewExpensePage extends StatefulWidget {
   const AddNewExpensePage({super.key});
@@ -14,6 +15,12 @@ class _AddNewExpensePageState extends State<AddNewExpensePage> {
   final TextEditingController _amountController = TextEditingController();
   final TextEditingController _dateController = TextEditingController();
   String? _selectedType;
+
+  triggerExpenceNotification() {
+    AwesomeNotifications().createNotification(
+      content: NotificationContent(id: 10, channelKey: 'basic_channel', title: 'Check Previous Costs', body: 'You have a new expence')
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -81,10 +88,11 @@ class _AddNewExpensePageState extends State<AddNewExpensePage> {
                     'date': _dateController.text,
                   });
 
-                  HapticFeedback.vibrate();
+                   HapticFeedback.vibrate();
 
                   // Επιστροφή στην προηγούμενη σελίδα
                   Navigator.pop(context);
+                  triggerExpenceNotification();
                 } else {
                   // Ειδοποίηση αν λείπουν δεδομένα
                   ScaffoldMessenger.of(context).showSnackBar(
