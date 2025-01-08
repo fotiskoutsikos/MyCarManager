@@ -87,6 +87,9 @@ class _AddNewReminderPageState extends State<AddNewReminderPage> {
                     'notes': _notesController.text,
                   });
 
+                  // Προσθήκη δόνησης για feedback
+                  HapticFeedback.vibrate();
+
                   // Επιστροφή στην προηγούμενη σελίδα
                   Navigator.pop(context);
                   triggerReminderNotification();
