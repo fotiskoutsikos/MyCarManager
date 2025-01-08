@@ -1,7 +1,18 @@
 import 'package:flutter/material.dart';
+import 'data.dart'; // Εισαγωγή της κοινής λίστας για τα έξοδα
 
-class AddNewExpensePage extends StatelessWidget {
+class AddNewExpensePage extends StatefulWidget {
   const AddNewExpensePage({super.key});
+
+  @override
+  _AddNewExpensePageState createState() => _AddNewExpensePageState();
+}
+
+class _AddNewExpensePageState extends State<AddNewExpensePage> {
+  final TextEditingController _descriptionController = TextEditingController();
+  final TextEditingController _amountController = TextEditingController();
+  final TextEditingController _dateController = TextEditingController();
+  String? _selectedType;
 
   @override
   Widget build(BuildContext context) {
@@ -21,11 +32,16 @@ class AddNewExpensePage extends StatelessWidget {
                 DropdownMenuItem(value: 'Service', child: Text('Service')),
                 DropdownMenuItem(value: 'Other', child: Text('Other')),
               ],
-              onChanged: (value) {},
+              onChanged: (value) {
+                setState(() {
+                  _selectedType = value;
+                });
+              },
               decoration: const InputDecoration(labelText: 'Expense Type:'),
             ),
             const SizedBox(height: 16),
             TextField(
+              controller: _descriptionController,
               decoration: const InputDecoration(
                 labelText: 'Expense Description:',
                 hintText: 'e.g. Fuel Refill',
@@ -33,6 +49,7 @@ class AddNewExpensePage extends StatelessWidget {
             ),
             const SizedBox(height: 16),
             TextField(
+              controller: _amountController,
               decoration: const InputDecoration(
                 labelText: 'Amount:',
                 hintText: 'e.g. 500\$',
@@ -41,6 +58,7 @@ class AddNewExpensePage extends StatelessWidget {
             ),
             const SizedBox(height: 16),
             TextField(
+              controller: _dateController,
               decoration: const InputDecoration(
                 labelText: 'Date:',
                 hintText: 'DD/MM/YYYY',
@@ -50,8 +68,29 @@ class AddNewExpensePage extends StatelessWidget {
             const SizedBox(height: 24),
             ElevatedButton(
               onPressed: () {
-                // Λογική αποθήκευσης
-                Navigator.pop(context);
+                if (_selectedType != null &&
+                    _descriptionController.text.isNotEmpty &&
+                    _amountController.text.isNotEmpty &&
+                    _dateController.text.isNotEmpty) {
+                  // Προσθήκη νέου εξόδου στη λίστα
+                  expenses.add({
+                    'type': _selectedType,
+                    'description': _descriptionController.text,
+                    'amount': _amountController.text,
+                    'date': _dateController.text,
+                  });
+
+                  // Επιστροφή στην προηγούμενη σελίδα
+                  Navigator.pop(context);
+                } else {
+                  // Ειδοποίηση αν λείπουν δεδομένα
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      content: Text('Please fill in all fields!'),
+                      backgroundColor: Colors.red,
+                    ),
+                  );
+                }
               },
               style: ElevatedButton.styleFrom(backgroundColor: Colors.purple),
               child: const Text('ADD NEW EXPENSE'),

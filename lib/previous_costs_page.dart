@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'data.dart'; // Εισαγωγή της λίστας
 
 class PreviousCostsPage extends StatelessWidget {
   const PreviousCostsPage({super.key});
@@ -63,19 +64,31 @@ class PreviousCostsPage extends StatelessWidget {
 
           // List of Costs
           Expanded(
-            child: ListView(
-              padding: const EdgeInsets.symmetric(horizontal: 16),
-              children: [
-                buildCostItem(
-                    context, 'Oil Change', 'at 124.059km', '\$30', Icons.oil_barrel),
-                buildCostItem(
-                    context, 'Windshield Wipers', 'at 109.360km', '\$25.50', Icons.wash),
-                buildCostItem(context, 'Multipliers Change', 'at 101.728km', '\$250',
-                    Icons.construction),
-                buildCostItem(
-                    context, 'New Tires', 'at 92.665km', '\$310', Icons.tire_repair),
-              ],
-            ),
+            child: expenses.isEmpty
+                ? const Center(
+                    child: Text(
+                      'No expenses added yet!',
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.grey,
+                      ),
+                    ),
+                  )
+                : ListView.builder(
+                    padding: const EdgeInsets.symmetric(horizontal: 16),
+                    itemCount: expenses.length,
+                    itemBuilder: (context, index) {
+                      final expense = expenses[index];
+                      return buildCostItem(
+                        context,
+                        expense['type'] ?? 'Unknown',
+                        expense['description'] ?? 'No description',
+                        '\$${expense['amount'] ?? '0.0'}',
+                        Icons.attach_money,
+                      );
+                    },
+                  ),
           ),
         ],
       ),
