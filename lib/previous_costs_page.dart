@@ -45,7 +45,7 @@ class PreviousCostsPage extends StatelessWidget {
               ),
               height: 120,
               width: double.infinity,
-              margin: const EdgeInsets.symmetric(horizontal: 16),
+              margin: const EdgeInsets.symmetric(horizontal: 80),
             ),
           ),
 
