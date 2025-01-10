@@ -46,7 +46,7 @@ class _MapPageState extends State<MapPage> {
   BitmapDescriptor customIcon = BitmapDescriptor.defaultMarker;
   void customMarker() async {
   final BitmapDescriptor icon = await BitmapDescriptor.fromAssetImage(
-    const ImageConfiguration(size: Size(64, 64)), // Προσαρμογή μεγέθους εικονιδίου
+    const ImageConfiguration(size: Size(32, 32)), // Προσαρμογή μεγέθους εικονιδίου
     'assets/blue_dot.png', // Βεβαιώσου ότι το αρχείο υπάρχει
   );
   setState(() {

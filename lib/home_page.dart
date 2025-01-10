@@ -16,9 +16,9 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-
+  @override
   void initState() {
-    AwesomeNotifications().isNotificationAllowed().then((isAllowed){
+    AwesomeNotifications().isNotificationAllowed().then((isAllowed) {
       if (!isAllowed) {
         AwesomeNotifications().requestPermissionToSendNotifications();
       }
@@ -39,7 +39,7 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Theme.of(context).scaffoldBackgroundColor, // Απαλό μωβ background
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       body: _pages[_currentIndex],
       bottomNavigationBar: BottomNavigationBar(
         backgroundColor: Colors.white,
@@ -160,142 +160,144 @@ class HomePageContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(16.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          // Λογότυπο
-          Center(
-            child: Container(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(28),
-                image: const DecorationImage(
-                  image: AssetImage('assets/car_logo.png'), // Βάλε την εικόνα σου
-                  fit: BoxFit.cover,
+    return SingleChildScrollView(
+      child: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            // Λογότυπο
+            Center(
+              child: Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(28),
+                  image: const DecorationImage(
+                    image: AssetImage('assets/car_logo.png'),
+                    fit: BoxFit.cover,
+                  ),
+                ),
+                height: 80,
+                width: 110,
+              ),
+            ),
+            const SizedBox(height: 20),
+
+            // Tips & Tricks Section
+            Card(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(16),
+              ),
+              elevation: 4,
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      children: const [
+                        Icon(Icons.lightbulb, color: Colors.deepPurple),
+                        SizedBox(width: 8),
+                        Text(
+                          'Tips & Tricks',
+                          style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.deepPurple,
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 10),
+                    Row(
+                      children: [
+                        Image.asset(
+                          'assets/ecodriving.png',
+                          height: 100,
+                          width: 100,
+                        ),
+                        const SizedBox(width: 10),
+                        const Expanded(
+                          child: Text(
+                            'Eco-Driving:\n- Adaptive cruise control.\n- Tire pressure monitoring.',
+                            style: TextStyle(fontSize: 16),
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 10),
+                    Row(
+                      children: [
+                        Image.asset(
+                          'assets/safe_driving.png',
+                          height: 100,
+                          width: 100,
+                        ),
+                        const SizedBox(width: 10),
+                        const Expanded(
+                          child: Text(
+                            'Safe Driving:\n- Lane departure warning.\n- Blind spot detection.',
+                            style: TextStyle(fontSize: 16),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
                 ),
               ),
-              height: 80,
-              width: 110,
             ),
-          ),
-          const SizedBox(height: 20),
+            const SizedBox(height: 20),
 
-          // Tips & Tricks Section
-          Card(
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(16),
-            ),
-            elevation: 4,
-            child: Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
-                    children: const [
-                      Icon(Icons.lightbulb, color: Colors.deepPurple),
-                      SizedBox(width: 8),
-                      Text(
-                        'Tips & Tricks',
-                        style: TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.deepPurple,
+            // Reminders Section
+            Card(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(16),
+              ),
+              elevation: 4,
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      children: const [
+                        Icon(Icons.notifications, color: Colors.deepPurple),
+                        SizedBox(width: 8),
+                        Text(
+                          'Reminders',
+                          style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.deepPurple,
+                          ),
                         ),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 10),
-                  Row(
-                    children: [
-                      Image.asset(
-                        'assets/ecodriving.png', // Εικόνα για Eco Driving
-                        height: 100,
-                        width: 100,
-                      ),
-                      const SizedBox(width: 10),
-                      const Expanded(
-                        child: Text(
-                          'Eco-Driving:\n- Adaptive cruise control.\n- Tire pressure monitoring.',
-                          style: TextStyle(fontSize: 16),
-                        ),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 10),
-                  Row(
-                    children: [
-                      Image.asset(
-                        'assets/safe_driving.png', // Εικόνα για Safe Driving
-                        height: 100,
-                        width: 100,
-                      ),
-                      const SizedBox(width: 10),
-                      const Expanded(
-                        child: Text(
-                          'Safe Driving:\n- Lane departure warning.\n- Blind spot detection.',
-                          style: TextStyle(fontSize: 16),
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
+                      ],
+                    ),
+                    const SizedBox(height: 10),
+                    reminders.isEmpty
+                        ? const Text(
+                            'No reminders added yet!',
+                            style: TextStyle(fontSize: 16, color: Colors.grey),
+                          )
+                        : ListView.builder(
+                            shrinkWrap: true,
+                            physics: const NeverScrollableScrollPhysics(),
+                            itemCount: reminders.length,
+                            itemBuilder: (context, index) {
+                              final reminder = reminders[index];
+                              return ListTile(
+                                leading: const Icon(Icons.alarm, color: Colors.green),
+                                title: Text(reminder['title'] ?? 'No title'),
+                                subtitle: Text(reminder['date'] ?? 'No date'),
+                                trailing: Text(reminder['type'] ?? 'No type'),
+                              );
+                            },
+                          ),
+                  ],
+                ),
               ),
             ),
-          ),
-          const SizedBox(height: 20),
-
-          // Reminders Section
-          Card(
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(16),
-            ),
-            elevation: 4,
-            child: Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
-                    children: const [
-                      Icon(Icons.notifications, color: Colors.deepPurple),
-                      SizedBox(width: 8),
-                      Text(
-                        'Reminders',
-                        style: TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.deepPurple,
-                        ),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 10),
-                  reminders.isEmpty
-                      ? const Text(
-                          'No reminders added yet!',
-                          style: TextStyle(fontSize: 16, color: Colors.grey),
-                        )
-                      : ListView.builder(
-                          shrinkWrap: true,
-                          physics: const AlwaysScrollableScrollPhysics(),
-                          itemCount: reminders.length,
-                          itemBuilder: (context, index) {
-                            final reminder = reminders[index];
-                            return ListTile(
-                              leading: const Icon(Icons.alarm, color: Colors.green),
-                              title: Text(reminder['title'] ?? 'No title'),
-                              subtitle: Text(reminder['date'] ?? 'No date'),
-                              trailing: Text(reminder['type'] ?? 'No type'),
-                            );
-                          },
-                        ),
-                ],
-              ),
-            ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
