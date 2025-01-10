@@ -1,21 +1,17 @@
-<<<<<<< HEAD
-# mycarmanager_new
-
-A new Flutter project.
-
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
-=======
 # MyCarManager
-HCI Project
->>>>>>> da808647c5f149e977887fc8d38360b9046d69c3
+
+## Περιγραφή Εφαρμογής
+Το **MyCarManager** είναι μια ολοκληρωμένη εφαρμογή διαχείρισης αυτοκινήτου που παρέχει στους χρήστες τη δυνατότητα να παρακολουθούν και να οργανώνουν σημαντικές πληροφορίες και δραστηριότητες που σχετίζονται με το αυτοκίνητό τους. Περιλαμβάνει λειτουργίες όπως:
+- Διαχείριση και προσθήκη υπενθυμίσεων (service, αλλαγές ελαστικών, πληρωμές ασφαλίστρων).
+- Εύρεση κοντινών συνεργείων και πρατηρίων καυσίμων μέσω χάρτη.
+- Παρακολούθηση προηγούμενων εξόδων.
+- Ειδοποιήσεις για σημαντικές υπενθυμίσεις.
+- Ενεργοποίηση/Απενεργοποίηση ήχων εφαρμογής.
+- Δυνατότητα αλλαγής θέματος (Dark/Light mode).
+
+## Εγκατάσταση
+### Απαιτήσεις:
+- **Flutter SDK:** Εγκατεστημένο. version 3.27.1
+- **Android SDK:** Εγκατεστημένο. version 35.0.0
+- **IDE:** Android Studio ή Visual Studio Code με τα απαραίτητα plugins.
+- **Εργαλεία Ανάπτυξης:** Gradle version 8.2.1
