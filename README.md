@@ -51,4 +51,5 @@
 - **Android SDK:** Εγκατεστημένο. version 35.0.0
 - **IDE:** Android Studio ή Visual Studio Code με τα απαραίτητα plugins.
 - **Εργαλεία Ανάπτυξης:** Gradle version 8.2.1
+- **Git Repo:** https://github.com/Iraklicc/MyCarManager
 
