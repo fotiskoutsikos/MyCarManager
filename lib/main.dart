@@ -38,7 +38,7 @@ class MyApp extends StatelessWidget {
       theme: lightTheme,
       darkTheme: darkTheme,
       themeMode: themeNotifier.isDarkMode ? ThemeMode.dark : ThemeMode.light,
-      home: const LoginPage(), // Η αρχική σελίδα του app σου
+      home: const LoginPage(), // Η αρχική σελίδα του app
     );
   }
 }
