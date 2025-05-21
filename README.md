@@ -44,6 +44,11 @@
 2. Είστε έτοιμοι να ξεκινήσετε με το **MyCarManager**!
 
 ---
+![image](https://github.com/user-attachments/assets/70bbe3b5-c09a-4f93-8ba5-83bff0db10bc)
+![image](https://github.com/user-attachments/assets/59e35159-3eb2-4d39-8b02-c7aad9620091)
+![image](https://github.com/user-attachments/assets/4bc4f280-0158-48c8-a88f-382f38d07572)
+![image](https://github.com/user-attachments/assets/429f8729-2104-4ad4-856a-93c636627cec)
+![image](https://github.com/user-attachments/assets/dc477e4b-5614-4206-8bb8-b574c517c038)
 
 
 ### Απαιτήσεις:
